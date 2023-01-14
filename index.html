@@ -1,9 +1,55 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Hello World</title>
-  </head>
-  <body>
-    <h1>Hello World</h1>
-  </body>
+<head>
+  <title>Binary Sort Visualization</title>
+  <script>
+    // Function to perform the binary sort
+    function binarySort(arr) {
+      // Loop through the array
+      for (let i = 0; i < arr.length; i++) {
+        let minIndex = i;
+        // Find the minimum element in the remaining unsorted array
+        for (let j = i + 1; j < arr.length; j++) {
+          if (arr[j] < arr[minIndex]) {
+            minIndex = j;
+          }
+        }
+        // Swap the found minimum element with the first element
+        let temp = arr[minIndex];
+        arr[minIndex] = arr[i];
+        arr[i] = temp;
+      }
+      return arr;
+    }
+
+    // Function to visualize the sort
+    function visualizeSort() {
+      // Get the array from the input field
+      let inputArray = document.getElementById("inputArray").value;
+      // Split the input string into an array
+      let arr = inputArray.split(",");
+      // Convert the array elements to numbers
+      arr = arr.map(Number);
+      // Perform the binary sort
+      let sortedArray = binarySort(arr);
+      // Get the div element to display the array
+      let arrayDiv = document.getElementById("array");
+      // Clear the div
+      arrayDiv.innerHTML = "";
+      // Loop through the array and create a div for each element
+      for (let i = 0; i < sortedArray.length; i++) {
+        let arrayElement = document.createElement("div");
+        arrayElement.style.height = sortedArray[i] + "px";
+        arrayDiv.appendChild(arrayElement);
+      }
+    }
+  </script>
+</head>
+<body>
+  <h1>Binary Sort Visualization</h1>
+  <label for="inputArray">Enter an array of numbers separated by commas:</label>
+  <input type="text" id="inputArray">
+  <button onclick="visualizeSort()">Visualize Sort</button>
+  <div id="array"></div>
+</body>
 </html>
